@@ -193,7 +193,7 @@ gateway with retrieval. Part B fixes this: every core arm is gated, and the unga
   unchanged. The 2-page target is now a warning. Regenerate on the machine that originally produced
   2 pages to get 2 pages.
 
-## 8. Live runs to do next
+## 8. Live runs to do next (written before the subsequent Part D run)
 
 These cannot be run from this sandbox (no API key or network route). Run them where the key is available:
 
@@ -315,8 +315,8 @@ How to read it:
 - None of the paired differences is significant (smallest McNemar p = 0.125). Fifteen tasks per arm is a
   pilot. The intervals are wide and the agent is simulated.
 
-**Not done here.** The live Gemini run needs a key and network access, which this environment does not
-have. The commands are in §8.
+**Not done at this review pass.** The live Gemini run needed a key and network access unavailable in that
+sandbox. The later exploratory run is documented in Part D; it does not complete the matched three-arm pilot.
 
 ## B6. Polish (P2)
 
