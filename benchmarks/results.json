@@ -1,0 +1,290 @@
+{
+  "run_metadata": {
+    "canonical": true,
+    "generated_at_utc": "2026-11-26T18:28:49+00:00",
+    "code_sha256_16": "d620acdff0477b2a",
+    "python": "3.13.18",
+    "host": "Linux x86_64, 2 logical CPUs",
+    "workers": 8,
+    "latency_seed": 42,
+    "storage": "single-host SQLite WAL",
+    "latency_measure": "cumulative per-run critical-path ms (recall + gateway + observation bookkeeping across all steps), reported for cold-connection and warm-connection passes",
+    "cost_measure": "offline persisted memory LLM-call accounting (simulated client), not live billing"
+  },
+  "scale_and_latency": {
+    "deployment_scope": "single_host_local_sqlite_wal_prototype",
+    "seed_seconds": 1.08,
+    "db_stats": {
+      "total_memories": 62043,
+      "active": 44043,
+      "contested": 6000,
+      "candidates": 4800,
+      "quarantined": 2400,
+      "refuted": 1800,
+      "global_active": 2000,
+      "run_reads": 95271,
+      "refutation_ledger": 1000,
+      "runs": 608,
+      "containment_audits": 0,
+      "global_staging": 0,
+      "llm_cost_events": 0,
+      "daily_cohort_rollups": 0,
+      "daily_cost_rollups": 0,
+      "promoted_cluster_counts": 0,
+      "evidence_sources": 88,
+      "memory_derivations": 0
+    },
+    "disk_footprint_mb": 61.91,
+    "concurrent_workers": 8,
+    "runs_executed_total": 600,
+    "avg_steps_per_run": 25.66,
+    "max_tokens_observed": 3557,
+    "recall_relevance_mixed_status": {
+      "queries": 200,
+      "active_hit_at_5": 1.0,
+      "active_mrr": 1.0,
+      "anti_memory_surface_rate": 1.0,
+      "contested_framing_rate": 1.0,
+      "candidate_quarantine_rate": 1.0,
+      "forbidden_status_leaks": 0,
+      "expired_candidate_leaks": 0
+    },
+    "cold_connection_pass": {
+      "runs": 300,
+      "note": "Reopens SQLite connection per run (uncached SQLite page cache; OS filesystem cache remains warm)",
+      "step0_recall_ms": {
+        "p50": 28.759,
+        "p95": 47.249,
+        "p99": 52.88
+      },
+      "cumulative_run_critical_path_ms": {
+        "p50": 60.504,
+        "p95": 99.945,
+        "p99": 109.149,
+        "max": 114.799
+      }
+    },
+    "warm_pass": {
+      "runs": 300,
+      "step0_recall_ms": {
+        "p50": 29.277,
+        "p95": 44.109,
+        "p99": 54.948
+      },
+      "cumulative_run_critical_path_ms": {
+        "p50": 64.76,
+        "p95": 92.651,
+        "p99": 104.672,
+        "max": 120.329
+      }
+    }
+  },
+  "two_year_growth_trajectory": [
+    {
+      "day": 0,
+      "cumulative_writes": 24,
+      "total_memories": 25,
+      "active": 20,
+      "candidates": 4,
+      "refutation_ledger": 1,
+      "run_reads": 5,
+      "runs": 6,
+      "containment_audits": 1,
+      "global_staging": 6,
+      "llm_cost_events": 2,
+      "daily_cohort_rollups": 0,
+      "daily_cost_rollups": 0,
+      "promoted_cluster_counts": 0,
+      "evidence_sources": 24,
+      "memory_derivations": 0,
+      "disk_mb": 0.27
+    },
+    {
+      "day": 180,
+      "cumulative_writes": 4344,
+      "total_memories": 3686,
+      "active": 2467,
+      "candidates": 56,
+      "refutation_ledger": 7,
+      "run_reads": 300,
+      "runs": 540,
+      "containment_audits": 6,
+      "global_staging": 36,
+      "llm_cost_events": 187,
+      "daily_cohort_rollups": 91,
+      "daily_cost_rollups": 91,
+      "promoted_cluster_counts": 7,
+      "evidence_sources": 3983,
+      "memory_derivations": 0,
+      "disk_mb": 4.93
+    },
+    {
+      "day": 365,
+      "cumulative_writes": 8784,
+      "total_memories": 5149,
+      "active": 1069,
+      "candidates": 76,
+      "refutation_ledger": 13,
+      "run_reads": 325,
+      "runs": 570,
+      "containment_audits": 6,
+      "global_staging": 36,
+      "llm_cost_events": 203,
+      "daily_cohort_rollups": 271,
+      "daily_cost_rollups": 271,
+      "promoted_cluster_counts": 13,
+      "evidence_sources": 5440,
+      "memory_derivations": 0,
+      "disk_mb": 8.02
+    },
+    {
+      "day": 545,
+      "cumulative_writes": 13104,
+      "total_memories": 5161,
+      "active": 1068,
+      "candidates": 76,
+      "refutation_ledger": 19,
+      "run_reads": 325,
+      "runs": 570,
+      "containment_audits": 6,
+      "global_staging": 36,
+      "llm_cost_events": 209,
+      "daily_cohort_rollups": 451,
+      "daily_cost_rollups": 451,
+      "promoted_cluster_counts": 19,
+      "evidence_sources": 5446,
+      "memory_derivations": 0,
+      "disk_mb": 8.56
+    },
+    {
+      "day": 730,
+      "cumulative_writes": 17544,
+      "total_memories": 5053,
+      "active": 1098,
+      "candidates": 56,
+      "refutation_ledger": 25,
+      "run_reads": 300,
+      "runs": 540,
+      "containment_audits": 6,
+      "global_staging": 36,
+      "llm_cost_events": 205,
+      "daily_cohort_rollups": 641,
+      "daily_cost_rollups": 641,
+      "promoted_cluster_counts": 25,
+      "evidence_sources": 5332,
+      "memory_derivations": 0,
+      "disk_mb": 8.66
+    }
+  ],
+  "mechanism_verification_ab": {
+    "simulation_type": "offline_blind_loop_mechanism_verification",
+    "note": "Verifies belief-state invariants, ToolGateway containment, cost persistence, and telemetry mechanics using blind decide_next_action loop + ToolEnvironment and fair static allowlist on Stateless Holdout; live model efficacy claims require --mode ollama|openai or the 7-day production experiment.",
+    "telemetry": {
+      "memory": {
+        "runs": 900,
+        "avg_tool_calls": 1.991,
+        "avg_tool_errors": 0.0244,
+        "in_run_contradiction_rate": 0.0133,
+        "blocked_unsafe_actions": 48,
+        "reopen_rate": 0.0,
+        "p95_critical_path_ms": 2.174,
+        "avg_agent_llm_calls": 3.044,
+        "avg_memory_llm_calls": 0.2
+      },
+      "naive_rag": {
+        "runs": 50,
+        "avg_tool_calls": 3.52,
+        "avg_tool_errors": 0.52,
+        "in_run_contradiction_rate": 0.12,
+        "blocked_unsafe_actions": 0,
+        "reopen_rate": 0.24,
+        "p95_critical_path_ms": 0.071,
+        "avg_agent_llm_calls": 4.52,
+        "avg_memory_llm_calls": 1.0
+      },
+      "stateless_holdout": {
+        "runs": 50,
+        "avg_tool_calls": 6.82,
+        "avg_tool_errors": 0.4,
+        "in_run_contradiction_rate": 0.0,
+        "blocked_unsafe_actions": 3,
+        "reopen_rate": 0.06,
+        "p95_critical_path_ms": 0.421,
+        "avg_agent_llm_calls": 7.88,
+        "avg_memory_llm_calls": 0.0
+      }
+    },
+    "ledger": {
+      "runs_tracked": 900,
+      "agent_calls": 3134,
+      "memory_calls_total": 182,
+      "memory_extract_calls": 180,
+      "memory_adjudicate_calls": 0,
+      "memory_feedback_attrib_calls": 1,
+      "memory_global_synth_calls": 1,
+      "avg_memory_calls_per_run": 0.2022
+    },
+    "persisted_cost_summary": {
+      "runs_tracked": 900,
+      "memory_calls_total": 182,
+      "failed_attempts": 0,
+      "memory_extract_calls": 180,
+      "memory_adjudicate_calls": 0,
+      "memory_feedback_attrib_calls": 1,
+      "memory_global_synth_calls": 1,
+      "total_tokens_in": 0,
+      "total_tokens_out": 0,
+      "distinct_worker_pids": 1,
+      "avg_memory_calls_per_run": 0.2022
+    },
+    "windowed_7d_cost_summary": {
+      "runs_tracked": 900,
+      "memory_calls_total": 182,
+      "failed_attempts": 0,
+      "memory_extract_calls": 180,
+      "memory_adjudicate_calls": 0,
+      "memory_feedback_attrib_calls": 1,
+      "memory_global_synth_calls": 1,
+      "total_tokens_in": 0,
+      "total_tokens_out": 0,
+      "distinct_worker_pids": 1,
+      "avg_memory_calls_per_run": 0.2022
+    },
+    "multiprocess_cost_verification": {
+      "distinct_worker_pids": 2,
+      "memory_calls_total": 2,
+      "runs_tracked": 2
+    },
+    "unsafe_escalations": {
+      "memory": 0,
+      "naive_rag": 10,
+      "stateless_holdout": 3
+    },
+    "maintenance": {
+      "promoted_global_ids": [
+        "mem_5e3a707d0e0d451e"
+      ],
+      "compaction": {
+        "expired_candidates": 0,
+        "evicted_low_utility": 0,
+        "purged_tombstones": 0,
+        "purged_run_reads": 0,
+        "evicted_global": 0,
+        "redacted_runs": 0,
+        "pruned_runs": 0,
+        "pruned_cost_events": 0,
+        "pruned_audits": 0,
+        "pruned_global_staging": 0
+      }
+    },
+    "mechanism_checks": {
+      "passed": true,
+      "simulated_efficiency_delta_pct": 70.81,
+      "simulated_error_delta_pct": 93.9,
+      "reopen_delta_pp": -6.0,
+      "p95_critical_path_ms": 2.174,
+      "avg_memory_llm_calls": 0.2022,
+      "failures": []
+    }
+  }
+}

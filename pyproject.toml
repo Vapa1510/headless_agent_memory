@@ -1,0 +1,32 @@
+[project]
+name = "agentic-memory"
+version = "0.1.0"
+description = "Epistemic memory layer prototype for headless multi-tenant AI agents"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.10",
+    "rapidfuzz>=3.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0",
+    "ruff>=0.15",
+    "matplotlib>=3.10",
+    "PyMuPDF>=1.27",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-v --tb=short"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests", "benchmarks", "brief", "eval"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "UP", "SIM"]
+ignore = ["E501"]

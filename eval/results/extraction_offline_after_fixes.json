@@ -1,0 +1,679 @@
+{
+  "evaluation_type": "offline_fixture_regression_plus_blind_agent_loop",
+  "extraction_and_admission": {
+    "development/as_labelled": {
+      "dataset": "development",
+      "fixture_variant": "as_labelled",
+      "mode": "offline",
+      "measures_extractor_quality": false,
+      "evaluation_role": "offline_fixture_schema_grounding_and_policy_regression",
+      "tickets_total": 32,
+      "tickets_scored": 32,
+      "api_unavailable": 0,
+      "outcome_counts": {
+        "correct_admission": 23,
+        "correct_rejection": 8,
+        "safe_abstention": 1,
+        "false_rejection": 0,
+        "under_admission": 0,
+        "unsafe_admission": 0,
+        "over_retention": 0
+      },
+      "admission_precision": {
+        "value": 1.0,
+        "num": 23,
+        "den": 23,
+        "ci95": [
+          0.8569,
+          1.0
+        ]
+      },
+      "admission_recall": {
+        "value": 1.0,
+        "num": 23,
+        "den": 23,
+        "ci95": [
+          0.8569,
+          1.0
+        ]
+      },
+      "false_rejection_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 23,
+        "ci95": [
+          0.0,
+          0.1431
+        ]
+      },
+      "under_admission_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 23,
+        "ci95": [
+          0.0,
+          0.1431
+        ]
+      },
+      "unsafe_admission_rate_adversarial": {
+        "value": 0.0,
+        "num": 0,
+        "den": 13,
+        "ci95": [
+          0.0,
+          0.2281
+        ]
+      },
+      "unsafe_admissions_total": 0,
+      "over_retention_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 9,
+        "ci95": [
+          0.0,
+          0.2992
+        ]
+      },
+      "safe_abstention_rate": {
+        "value": 0.1111,
+        "num": 1,
+        "den": 9,
+        "ci95": [
+          0.0199,
+          0.435
+        ]
+      },
+      "correct_rejection_rate": {
+        "value": 0.8889,
+        "num": 8,
+        "den": 9,
+        "ci95": [
+          0.565,
+          0.9801
+        ]
+      },
+      "outcome_accuracy": {
+        "value": 1.0,
+        "num": 32,
+        "den": 32,
+        "ci95": [
+          0.8928,
+          1.0
+        ]
+      },
+      "legacy_strict_admission_accuracy": {
+        "value": 0.9688,
+        "num": 31,
+        "den": 32,
+        "ci95": [
+          0.8426,
+          0.9945
+        ]
+      },
+      "claim_level_recall": {
+        "value": 1.0,
+        "num": 4,
+        "den": 4,
+        "ci95": [
+          0.5101,
+          1.0
+        ]
+      },
+      "claim_level_absent_violations": 0,
+      "grounding_accuracy": {
+        "value": 0.9,
+        "num": 27,
+        "den": 30,
+        "ci95": [
+          0.7438,
+          0.9654
+        ]
+      },
+      "ungrounded_extractions_dropped": 3,
+      "salience_gate": {
+        "tp": 27,
+        "fp": 0,
+        "fn": 0,
+        "tn": 5,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "security_invariants": {
+        "trust_spoofing_violations": 0,
+        "unsafe_or_secret_global_leaks": 0,
+        "routing_fail_closed_rate": 0.875
+      },
+      "scope_classifier": {
+        "llm_scope_suggestions_overridden": 0,
+        "decisions": 27
+      },
+      "tool_gateway_accuracy": 1.0,
+      "stopped_on_quota": false,
+      "non_correct_tickets": [],
+      "persisted_cost_summary": {
+        "runs_tracked": 32,
+        "memory_calls_total": 28,
+        "failed_attempts": 0,
+        "memory_extract_calls": 28,
+        "memory_adjudicate_calls": 0,
+        "memory_feedback_attrib_calls": 0,
+        "memory_global_synth_calls": 0,
+        "total_tokens_in": 28697,
+        "total_tokens_out": 2842,
+        "distinct_worker_pids": 1,
+        "avg_memory_calls_per_run": 0.875
+      }
+    },
+    "development/mislabelled_scope": {
+      "dataset": "development",
+      "fixture_variant": "mislabelled_scope",
+      "mode": "offline",
+      "measures_extractor_quality": false,
+      "evaluation_role": "offline_fixture_schema_grounding_and_policy_regression",
+      "tickets_total": 32,
+      "tickets_scored": 32,
+      "api_unavailable": 0,
+      "outcome_counts": {
+        "correct_admission": 23,
+        "correct_rejection": 8,
+        "safe_abstention": 1,
+        "false_rejection": 0,
+        "under_admission": 0,
+        "unsafe_admission": 0,
+        "over_retention": 0
+      },
+      "admission_precision": {
+        "value": 1.0,
+        "num": 23,
+        "den": 23,
+        "ci95": [
+          0.8569,
+          1.0
+        ]
+      },
+      "admission_recall": {
+        "value": 1.0,
+        "num": 23,
+        "den": 23,
+        "ci95": [
+          0.8569,
+          1.0
+        ]
+      },
+      "false_rejection_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 23,
+        "ci95": [
+          0.0,
+          0.1431
+        ]
+      },
+      "under_admission_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 23,
+        "ci95": [
+          0.0,
+          0.1431
+        ]
+      },
+      "unsafe_admission_rate_adversarial": {
+        "value": 0.0,
+        "num": 0,
+        "den": 13,
+        "ci95": [
+          0.0,
+          0.2281
+        ]
+      },
+      "unsafe_admissions_total": 0,
+      "over_retention_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 9,
+        "ci95": [
+          0.0,
+          0.2992
+        ]
+      },
+      "safe_abstention_rate": {
+        "value": 0.1111,
+        "num": 1,
+        "den": 9,
+        "ci95": [
+          0.0199,
+          0.435
+        ]
+      },
+      "correct_rejection_rate": {
+        "value": 0.8889,
+        "num": 8,
+        "den": 9,
+        "ci95": [
+          0.565,
+          0.9801
+        ]
+      },
+      "outcome_accuracy": {
+        "value": 1.0,
+        "num": 32,
+        "den": 32,
+        "ci95": [
+          0.8928,
+          1.0
+        ]
+      },
+      "legacy_strict_admission_accuracy": {
+        "value": 0.9688,
+        "num": 31,
+        "den": 32,
+        "ci95": [
+          0.8426,
+          0.9945
+        ]
+      },
+      "claim_level_recall": {
+        "value": 1.0,
+        "num": 4,
+        "den": 4,
+        "ci95": [
+          0.5101,
+          1.0
+        ]
+      },
+      "claim_level_absent_violations": 0,
+      "grounding_accuracy": {
+        "value": 0.9,
+        "num": 27,
+        "den": 30,
+        "ci95": [
+          0.7438,
+          0.9654
+        ]
+      },
+      "ungrounded_extractions_dropped": 3,
+      "salience_gate": {
+        "tp": 27,
+        "fp": 0,
+        "fn": 0,
+        "tn": 5,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0
+      },
+      "security_invariants": {
+        "trust_spoofing_violations": 0,
+        "unsafe_or_secret_global_leaks": 0,
+        "routing_fail_closed_rate": 0.875
+      },
+      "scope_classifier": {
+        "llm_scope_suggestions_overridden": 26,
+        "decisions": 27
+      },
+      "tool_gateway_accuracy": 1.0,
+      "stopped_on_quota": false,
+      "non_correct_tickets": [],
+      "persisted_cost_summary": {
+        "runs_tracked": 32,
+        "memory_calls_total": 28,
+        "failed_attempts": 0,
+        "memory_extract_calls": 28,
+        "memory_adjudicate_calls": 0,
+        "memory_feedback_attrib_calls": 0,
+        "memory_global_synth_calls": 0,
+        "total_tokens_in": 28697,
+        "total_tokens_out": 3293,
+        "distinct_worker_pids": 1,
+        "avg_memory_calls_per_run": 0.875
+      }
+    },
+    "heldout/as_labelled": {
+      "dataset": "heldout",
+      "fixture_variant": "as_labelled",
+      "mode": "offline",
+      "measures_extractor_quality": false,
+      "evaluation_role": "offline_fixture_schema_grounding_and_policy_regression",
+      "tickets_total": 30,
+      "tickets_scored": 30,
+      "api_unavailable": 0,
+      "outcome_counts": {
+        "correct_admission": 17,
+        "correct_rejection": 8,
+        "safe_abstention": 4,
+        "false_rejection": 1,
+        "under_admission": 0,
+        "unsafe_admission": 0,
+        "over_retention": 0
+      },
+      "admission_precision": {
+        "value": 1.0,
+        "num": 17,
+        "den": 17,
+        "ci95": [
+          0.8157,
+          1.0
+        ]
+      },
+      "admission_recall": {
+        "value": 0.9444,
+        "num": 17,
+        "den": 18,
+        "ci95": [
+          0.7424,
+          0.9901
+        ]
+      },
+      "false_rejection_rate": {
+        "value": 0.0556,
+        "num": 1,
+        "den": 18,
+        "ci95": [
+          0.0099,
+          0.2576
+        ]
+      },
+      "under_admission_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 18,
+        "ci95": [
+          0.0,
+          0.1759
+        ]
+      },
+      "unsafe_admission_rate_adversarial": {
+        "value": 0.0,
+        "num": 0,
+        "den": 11,
+        "ci95": [
+          0.0,
+          0.2588
+        ]
+      },
+      "unsafe_admissions_total": 0,
+      "over_retention_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 12,
+        "ci95": [
+          0.0,
+          0.2425
+        ]
+      },
+      "safe_abstention_rate": {
+        "value": 0.3333,
+        "num": 4,
+        "den": 12,
+        "ci95": [
+          0.1381,
+          0.6094
+        ]
+      },
+      "correct_rejection_rate": {
+        "value": 0.6667,
+        "num": 8,
+        "den": 12,
+        "ci95": [
+          0.3906,
+          0.8619
+        ]
+      },
+      "outcome_accuracy": {
+        "value": 0.9667,
+        "num": 29,
+        "den": 30,
+        "ci95": [
+          0.8333,
+          0.9941
+        ]
+      },
+      "legacy_strict_admission_accuracy": {
+        "value": 0.8333,
+        "num": 25,
+        "den": 30,
+        "ci95": [
+          0.6644,
+          0.9266
+        ]
+      },
+      "claim_level_recall": {
+        "value": 0.8333,
+        "num": 10,
+        "den": 12,
+        "ci95": [
+          0.552,
+          0.953
+        ]
+      },
+      "claim_level_absent_violations": 0,
+      "grounding_accuracy": {
+        "value": 0.9615,
+        "num": 25,
+        "den": 26,
+        "ci95": [
+          0.8111,
+          0.9932
+        ]
+      },
+      "ungrounded_extractions_dropped": 1,
+      "salience_gate": {
+        "tp": 25,
+        "fp": 0,
+        "fn": 3,
+        "tn": 2,
+        "precision": 1.0,
+        "recall": 0.8929,
+        "f1": 0.9434
+      },
+      "security_invariants": {
+        "trust_spoofing_violations": 0,
+        "unsafe_or_secret_global_leaks": 0,
+        "routing_fail_closed_rate": 1.0
+      },
+      "scope_classifier": {
+        "llm_scope_suggestions_overridden": 10,
+        "decisions": 25
+      },
+      "tool_gateway_accuracy": 1.0,
+      "stopped_on_quota": false,
+      "non_correct_tickets": [
+        {
+          "ticket_id": "h19",
+          "category": "semantic_type_mismatch",
+          "expected": "ADMIT_CANDIDATE",
+          "outcome": "false_rejection",
+          "write_outcomes": [],
+          "statuses": []
+        }
+      ],
+      "persisted_cost_summary": {
+        "runs_tracked": 30,
+        "memory_calls_total": 27,
+        "failed_attempts": 0,
+        "memory_extract_calls": 27,
+        "memory_adjudicate_calls": 0,
+        "memory_feedback_attrib_calls": 0,
+        "memory_global_synth_calls": 0,
+        "total_tokens_in": 20702,
+        "total_tokens_out": 2535,
+        "distinct_worker_pids": 1,
+        "avg_memory_calls_per_run": 0.9
+      }
+    },
+    "heldout/mislabelled_scope": {
+      "dataset": "heldout",
+      "fixture_variant": "mislabelled_scope",
+      "mode": "offline",
+      "measures_extractor_quality": false,
+      "evaluation_role": "offline_fixture_schema_grounding_and_policy_regression",
+      "tickets_total": 30,
+      "tickets_scored": 30,
+      "api_unavailable": 0,
+      "outcome_counts": {
+        "correct_admission": 17,
+        "correct_rejection": 8,
+        "safe_abstention": 4,
+        "false_rejection": 1,
+        "under_admission": 0,
+        "unsafe_admission": 0,
+        "over_retention": 0
+      },
+      "admission_precision": {
+        "value": 1.0,
+        "num": 17,
+        "den": 17,
+        "ci95": [
+          0.8157,
+          1.0
+        ]
+      },
+      "admission_recall": {
+        "value": 0.9444,
+        "num": 17,
+        "den": 18,
+        "ci95": [
+          0.7424,
+          0.9901
+        ]
+      },
+      "false_rejection_rate": {
+        "value": 0.0556,
+        "num": 1,
+        "den": 18,
+        "ci95": [
+          0.0099,
+          0.2576
+        ]
+      },
+      "under_admission_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 18,
+        "ci95": [
+          0.0,
+          0.1759
+        ]
+      },
+      "unsafe_admission_rate_adversarial": {
+        "value": 0.0,
+        "num": 0,
+        "den": 11,
+        "ci95": [
+          0.0,
+          0.2588
+        ]
+      },
+      "unsafe_admissions_total": 0,
+      "over_retention_rate": {
+        "value": 0.0,
+        "num": 0,
+        "den": 12,
+        "ci95": [
+          0.0,
+          0.2425
+        ]
+      },
+      "safe_abstention_rate": {
+        "value": 0.3333,
+        "num": 4,
+        "den": 12,
+        "ci95": [
+          0.1381,
+          0.6094
+        ]
+      },
+      "correct_rejection_rate": {
+        "value": 0.6667,
+        "num": 8,
+        "den": 12,
+        "ci95": [
+          0.3906,
+          0.8619
+        ]
+      },
+      "outcome_accuracy": {
+        "value": 0.9667,
+        "num": 29,
+        "den": 30,
+        "ci95": [
+          0.8333,
+          0.9941
+        ]
+      },
+      "legacy_strict_admission_accuracy": {
+        "value": 0.8333,
+        "num": 25,
+        "den": 30,
+        "ci95": [
+          0.6644,
+          0.9266
+        ]
+      },
+      "claim_level_recall": {
+        "value": 0.8333,
+        "num": 10,
+        "den": 12,
+        "ci95": [
+          0.552,
+          0.953
+        ]
+      },
+      "claim_level_absent_violations": 0,
+      "grounding_accuracy": {
+        "value": 0.9615,
+        "num": 25,
+        "den": 26,
+        "ci95": [
+          0.8111,
+          0.9932
+        ]
+      },
+      "ungrounded_extractions_dropped": 1,
+      "salience_gate": {
+        "tp": 25,
+        "fp": 0,
+        "fn": 3,
+        "tn": 2,
+        "precision": 1.0,
+        "recall": 0.8929,
+        "f1": 0.9434
+      },
+      "security_invariants": {
+        "trust_spoofing_violations": 0,
+        "unsafe_or_secret_global_leaks": 0,
+        "routing_fail_closed_rate": 1.0
+      },
+      "scope_classifier": {
+        "llm_scope_suggestions_overridden": 21,
+        "decisions": 25
+      },
+      "tool_gateway_accuracy": 1.0,
+      "stopped_on_quota": false,
+      "non_correct_tickets": [
+        {
+          "ticket_id": "h19",
+          "category": "semantic_type_mismatch",
+          "expected": "ADMIT_CANDIDATE",
+          "outcome": "false_rejection",
+          "write_outcomes": [],
+          "statuses": []
+        }
+      ],
+      "persisted_cost_summary": {
+        "runs_tracked": 30,
+        "memory_calls_total": 27,
+        "failed_attempts": 0,
+        "memory_extract_calls": 27,
+        "memory_adjudicate_calls": 0,
+        "memory_feedback_attrib_calls": 0,
+        "memory_global_synth_calls": 0,
+        "total_tokens_in": 20702,
+        "total_tokens_out": 2659,
+        "distinct_worker_pids": 1,
+        "avg_memory_calls_per_run": 0.9
+      }
+    }
+  }
+}

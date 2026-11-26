@@ -1,0 +1,33 @@
+# Local secrets
+.env
+.env.*
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Benchmark & eval runtime SQLite databases
+benchmarks/data/
+eval/data/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite*
+
+# Temporary artifacts
+_raw_brief.pdf
+dist/
+.DS_Store
+Thumbs.db
+
+# Live evaluation checkpoints (may contain model outputs; regenerate locally)
+eval/checkpoints/
