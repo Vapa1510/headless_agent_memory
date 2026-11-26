@@ -36,7 +36,7 @@ Confidence reflects evidence only and does not decay; actionability is computed 
 
 **Forgetting.** At most 500 active claims and 100 anti-memories per tenant, a starting assumption to test against real workloads. Eviction ranks by confidence, access recency, verified helps, access count and trust; anti-memories and human-verified claims get bonuses, and refutations are kept permanently.
 
-**Measured (single host, SQLite WAL, 8 workers, 62k claims).** Cumulative memory critical path per run: 100 ms p95 cold, 93 ms warm. Offline accounting: 0.20 memory LLM calls per run; my fleet estimate is 0.75 (60% of runs extract). Everything in this section is implemented and covered by the 84-test suite except DKIM handling and PostgreSQL, which are designed, not built.
+**Measured (single host, SQLite WAL, 8 workers, 62k claims).** Cumulative memory critical path per run: 100 ms p95 cold, 93 ms warm. Offline accounting: 0.20 memory LLM calls per run; my fleet estimate is 0.75 (60% of runs extract). Everything in this section is implemented and covered by the 84-case pytest suite except DKIM handling and PostgreSQL, which are designed, not built.
 
 ## 4. Walkthroughs
 
@@ -56,7 +56,7 @@ Confidence reflects evidence only and does not decay; actionability is computed 
 
 ## 6. Experiment
 
-One week, 35,000 tasks. Tenants are stratified by volume and task mix and assigned 1:1:1 (about 67 tenants, 11,700 tasks per arm) to stateless, similarity-RAG and memory. Model, prompts, tools, permissions and gateway are identical; each tenant stays in one arm. A live 15-task pilot (the offline harness in Figure 2c, run against a real model) must pass first.
+One week, 35,000 tasks. Tenants are stratified by volume and task mix and assigned 1:1:1 (about 67 tenants, 11,700 tasks per arm) to stateless, similarity-RAG and memory. Model, prompts, tools, permissions and gateway are identical; each tenant stays in one arm. A live 32-ticket Gemini extraction/safety probe has run, but it is not the matched 15-task agent-loop pilot required before efficacy claims.
 
 - **Correctness:** 200 blind-graded outputs per arm against hidden checks, with Wilson intervals; this detects about 11-point differences.
 - **Also measured:** false-memory use, authoritative contradictions, contamination left after correction, cross-tenant leaks, unsafe actions, tool calls, memory calls, p95 latency.
