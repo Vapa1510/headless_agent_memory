@@ -1,0 +1,42 @@
+name: Regenerate submission brief PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "brief/brief_content.py"
+      - "brief/brief.md"
+      - "brief/build_pdf.py"
+      - "brief/fig1_architecture.png"
+      - "brief/fig2_measurements.png"
+      - ".github/workflows/regenerate-brief.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install PDF dependencies
+        run: python -m pip install --upgrade pip reportlab pillow
+      - name: Rebuild and validate PDF
+        run: python brief/build_pdf.py
+      - name: Commit regenerated PDF
+        run: |
+          if git diff --quiet -- brief/Agentic_Memory_Brief.pdf; then
+            echo "PDF is already up to date."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add brief/Agentic_Memory_Brief.pdf
+          git commit -m "docs: regenerate submission brief PDF"
+          git push
