@@ -8,10 +8,10 @@ Where Part B changed a result reported in Part A, Part A says so.
 What changed after the live Gemini Flash report, what was measured afterwards, and what is still unproven.
 Every number below comes from a file in `eval/results/` or `benchmarks/results.json`.
 
-**Read this first.** No new live Gemini run has been done since these changes. All post-change numbers come
-from offline fixtures (deterministic replayed extractor responses) or from the simulated agent. They show that
-the deterministic layers behave as intended. They do not show what Gemini itself will do. The live commands
-are at the end of this file.
+**Read this first.** At the time this Part A write-up was prepared, no new live Gemini run had been done
+since these changes. A subsequent exploratory live Gemini Flash run (2026-11-27) is now recorded in Part D.
+The post-change offline fixtures still show deterministic policy behavior; the later live run separately probes
+real model behavior but does not complete the matched three-arm efficacy experiment.
 
 ---
 
@@ -352,6 +352,39 @@ brief figures are generated from that one run: 99.9 ms cold / 92.7 ms warm p95 c
 path on a 2-CPU host with 8 workers. Latency varies by about ±20% between runs on this host; earlier
 documents quoted 111–125 ms from other runs.
 
-What the brief still labels as not done: the live-model pilot, a PostgreSQL adapter, tenant-stratified
-allocation in code (the experiment is a proposal), and semantic entailment beyond lexical polarity and
-version checks.
+What the brief still labels as not done: a complete matched live-model efficacy pilot (the exploratory run
+in Part D is incomplete), a PostgreSQL adapter, tenant-stratified allocation in code (the experiment is a
+proposal), and semantic entailment beyond lexical polarity and version checks.
+
+
+# Part D — subsequent live Gemini Flash exploration (2026-11-27)
+
+This section records the later live run, so the earlier statements in Parts A and B remain historical descriptions
+of what had been executed at those review points. The detailed report is
+[`eval/results/GEMINI_FLASH_EXPLORATORY.md`](eval/results/GEMINI_FLASH_EXPLORATORY.md).
+
+## D1. Extraction and safety results
+
+The repository author reports a 32-ticket live extraction run with `gemini-3.5-flash-lite`:
+
+- Salience F1 1.00 (27 TP, 5 TN, 0 FP, 0 FN); one ungrounded span was dropped.
+- Eight minimum-risk upgrades; routing fail-closed rate 1.00.
+- Zero trust-spoofing violations and zero unsafe/secret global leaks.
+- ToolGateway accuracy 9/10. The `t28` case failed because `billing_v2` was not admitted; the gateway blocked rather than executing an unverified route change.
+- The reported aggregate `admission_accuracy` was 0.4688. Raw per-ticket Gemini responses/result bundle were not retained with this report, so this number is not independently re-derived.
+
+The live run also exposed durable-fact scope suggestions, refusal-versus-rejection metric interpretation, compound-fact coverage gaps and free-tier 429 throttling. The current code contains deterministic scope classification, a `SAFE_ABSTENTION` outcome, per-claim coverage checks, bounded focused re-extraction and rate-limit-aware retry/checkpoint mechanisms. The live observations show that these mechanisms still need full-model regression evidence.
+
+## D2. Live synthesis and feedback probes
+
+The author reports one five-tenant `urllib3` advisory promotion in 1.29 s and one delayed-feedback attribution in 1.13 s (two audit events). These are successful probes, not reliability or latency estimates.
+
+## D3. Three-arm agent loop: incomplete
+
+The live comparison did not complete. One MEMORY task finished safely (three tool calls, one blocked off-domain escalation, no executed unsafe action); another MEMORY task used three tool calls/four agent LLM calls versus six tool calls/seven agent LLM calls for its stateless counterpart. Several remaining arm/task runs were interrupted by HTTP 429 responses. These single-task observations are not aggregate evidence that memory improves correctness or efficiency.
+
+## D4. Verification and interpretation
+
+The current main test tree has 73 test functions and 84 expected pytest cases after parameter expansion. The separate sandbox run reported 41 passing tests, but it is not the collection count for the checked-in main test tree. This documentation update did not execute the suite; rerun `pytest -q` and the packaging verification before release.
+
+The live evidence supports adapter integration and shows that deterministic safeguards can block some real model errors. It does not yet establish a correctness advantage over stateless execution or naive RAG. A complete matched three-arm run, with resumable checkpoints and preserved per-ticket metrics, remains outstanding.
