@@ -188,24 +188,41 @@ def test_compound_observation_yields_independent_claims_with_partial_acceptance(
     store.close()
 
 
-def test_focused_gap_reextraction_recovers_dropped_route_once_and_never_on_abstention(tmp_path: Path) -> None:
+def test_focused_gap_reextraction_recovers_t28_route_once_and_never_on_abstention(tmp_path: Path) -> None:
+    """Regression for t28: a retirement date must not hide an unextracted active route token."""
     client = OpenAICompatibleLLMClient(api_key="k")
     store, layer = _layer(tmp_path, "gap", llm=client)
-    content = "Deprecation notice: route payments_v3 retires on 2027-01-15; new traffic must use payments_v4."
+    content = (
+        "Internal gateway emits HTTP 299 Warning header: billing route v1_deprecated "
+        "retires on 2026-12-01; route to billing_v2."
+    )
     calls = {"n": 0}
-    first = {"claims": [{"source_id": "src_r_gap", "source_quote": "route payments_v3 retires on 2027-01-15",
-                         "subject": "payments_route_v3", "predicate": "retirement_date", "value": "2027-01-15",
-                         "statement": "payments_v3 retires on 2027-01-15.", "risk_class": "medium_operational"}]}
-    second = {"claims": [{"source_id": "src_r_gap", "source_quote": "new traffic must use payments_v4",
-                          "subject": "payments_route", "predicate": "active_route", "value": "payments_v4",
-                          "statement": "New traffic uses payments_v4.", "risk_class": "high_action_routing"}]}
+    first = {"claims": [{
+        "source_id": "src_r_gap",
+        "source_quote": "billing route v1_deprecated retires on 2026-12-01",
+        "subject": "billing_route_v1_deprecated",
+        "predicate": "retirement_date",
+        "value": "2026-12-01",
+        "statement": "Billing route v1_deprecated retires on 2026-12-01.",
+        "risk_class": "medium_operational",
+    }]}
+    second = {"claims": [{
+        "source_id": "src_r_gap",
+        "source_quote": "route to billing_v2",
+        "subject": "billing_route",
+        "predicate": "active_route",
+        "value": "billing_v2",
+        "statement": "Billing traffic must route to billing_v2.",
+        "risk_class": "high_action_routing",
+        "suggested_durability": "persistent",
+    }]}
 
     def _urlopen(req: Any, timeout: float = 0) -> _Resp:
         calls["n"] += 1
         body = json.loads(req.data.decode())
         user = json.loads(body["messages"][1]["content"])
         if calls["n"] == 2:
-            assert "payments_v4" in user["focus"]
+            assert "billing_v2" in user["focus"]
         return _Resp(first if calls["n"] == 1 else second)
 
     obs = layer.trust_registry.build_trusted_observation(
@@ -213,15 +230,17 @@ def test_focused_gap_reextraction_recovers_dropped_route_once_and_never_on_abste
         step_idx=0, tool_name="query_infra_api", source_id="src_r_gap", connector_id="internal_infra",
         source_type=SourceType.INTERNAL_API, content=content, observed_at=NOW,
     )
-    sess = layer.start_run(run_id="r_gap", org_id="acme", task_text="Check routes", now=NOW)
+    sess = layer.start_run(run_id="r_gap", org_id="acme", task_text="Inspect API deprecation header", now=NOW)
     layer.record_tool_observation(sess, obs)
     with patch("urllib.request.urlopen", side_effect=_urlopen):
         res = layer.end_run(sess, final_output="done", now=NOW)
     assert calls["n"] == 2
-    assert {c.value for c, _ in res if c is not None} == {"2027-01-15", "payments_v4"}
+    assert {c.value for c, _ in res if c is not None and c.status == MemoryStatus.ACTIVE} == {
+        "2026-12-01", "billing_v2"
+    }
     assert sess.memory_llm_calls == 2
 
-    # Abstention (zero accepted claims) never triggers a second call
+    # Abstention (zero accepted claims) never triggers a second call.
     calls["n"] = 0
     with patch("urllib.request.urlopen", side_effect=lambda *a, **k: (calls.__setitem__("n", calls["n"] + 1), _Resp({"claims": []}))[1]):
         sess2 = layer.start_run(run_id="r_gap2", org_id="acme", task_text="t", now=NOW)
