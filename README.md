@@ -21,7 +21,9 @@ All numbers below come directly from [benchmarks/results.json](benchmarks/result
 | Unsafe escalations in the 1,000-run mechanism check (ungated RAG baseline, for contrast) | `0` with the gateway | **Memory `0`**, Stateless `3`, ungated Naive RAG `10` |
 
 Benchmarks are mechanism checks. Agent efficacy is reported separately in `eval/results/three_arm_offline.json`
-(offline, simulated agent) and needs the live run below before any claim about real models.
+(offline, simulated agent). An exploratory live Gemini Flash run is now documented in
+[`eval/results/GEMINI_FLASH_EXPLORATORY.md`](eval/results/GEMINI_FLASH_EXPLORATORY.md); it is not a completed
+matched live three-arm efficacy benchmark.
 
 ---
 
@@ -58,8 +60,9 @@ Offline result (simulated agent, 15 tasks, so a pilot only):
 | Naive RAG (ungated) | 9/15 | 5 | 6 / 11 | 3.8 |
 | Memory without staleness labels | 13/15 | 0 | 2 / 11 | 3.1 |
 
-No paired difference is significant at this size (smallest McNemar p = 0.125). The live Gemini run has not
-been done in this environment; the commands are below.
+No paired difference is significant at this size (smallest McNemar p = 0.125). This remains an offline,
+simulated-agent pilot. A partial live Gemini extraction and agent-loop probe has since been run; see the
+[exploratory live report](eval/results/GEMINI_FLASH_EXPLORATORY.md) for results and limitations.
 
 ---
 
@@ -75,8 +78,8 @@ been done in this environment; the commands are below.
 - `src/agentic_memory/extraction_policy.py` — Deterministic scope classifier (`classify_scope`), per-claim span binding, predicate/value semantic checks, and coverage-gap detection (0 LLM calls).
 - `src/agentic_memory/global_semantics.py` — Directive polarity, version-constraint and contributor-conflict checks for global promotion.
 - `src/agentic_memory/evaluation.py` — Outcome taxonomy (`EvaluationOutcome`), claim-level expectations, Wilson intervals, and separated extraction/admission metrics.
-- `tests/test_review_hardening.py`, `tests/test_three_arm_runner.py` — regression tests for both review rounds (84 tests in the suite).
-- `tests/` — the original automated tests (20 core/scenario/concurrency/edge-case tests + Scenario 3 cross-subject hard boundary + 10 adversarial invariant & 200-trial seeded property tests in `tests/test_adversarial_invariants.py` + 9 security, trust-boundary, target-key exclusion, standalone-entrypoint, rollup, blind-loop, PG16 & recall-ordering regression tests in `tests/test_security_and_boundaries.py`).
+- `tests/test_review_hardening.py`, `tests/test_three_arm_runner.py` — regression tests for scope handling, safe abstention, compound-claim coverage, Gemini pacing/quota behavior, and the matched three-arm runner.
+- `tests/` — 73 test functions across the suite; the two parameterized tests add 11 cases, for 84 expected pytest cases in the current source tree. This is a source-level collection count, not a fresh run result. The adversarial suite includes a 200-trial seeded property test; the security suite covers trust boundaries, target-key exclusion, standalone entrypoints, rollups, blind-loop isolation, PG16 diagnostics and recall ordering.
 - `eval/` — 32 development tickets (`tickets_30.jsonl`), 30 held-out tickets (`tickets_heldout.jsonl`), the 15-task three-arm suite with hidden assertions (`tasks_three_arm.jsonl`), the extraction/admission harness (`run_live_eval.py`, with `as_labelled` and `mislabelled_scope` fixture variants and `--checkpoint-dir` resume), the matched three-arm runner (`run_three_arm.py`), and saved results (`results/`).
 - `benchmarks/run_benchmarks.py` — Mixed-status `cold_connection_pass` / `warm_pass` multi-process latency, recall relevance (including `CONTESTED` / `CANDIDATE_UNVERIFIED`), 2-year growth trajectory across all tables, and offline blind-loop mechanism verification suite.
 - `brief/` — the Section 6 submission brief ([brief/Agentic_Memory_Brief.pdf](brief/Agentic_Memory_Brief.pdf), [brief/brief.md](brief/brief.md)): six sections, ≤1,200 words, two figures (`fig1_architecture.png`, `fig2_measurements.png`). `generate_brief.py` redraws the figures from `benchmarks/results.json` and `eval/results/three_arm_offline.json`, rebuilds the PDF and checks every section limit.
@@ -113,6 +116,8 @@ python eval/run_live_eval.py --mode gemini --suite extract --rpm 8 --checkpoint-
 python eval/run_three_arm.py --mode gemini --rpm 8 --checkpoint-dir eval/checkpoints/gemini_three_arm
 # optional: --include-ungated-rag --include-revalidation-ablation
 ```
+
+For live Gemini runs, see the report above and use `--rpm` plus `--checkpoint-dir`. Do not compare partial runs across arms or treat API-unavailable tickets as model failures.
 
 ### 3. Run Mixed-Status Scale, 2-Year Growth & Mechanism Benchmarks
 ```powershell
