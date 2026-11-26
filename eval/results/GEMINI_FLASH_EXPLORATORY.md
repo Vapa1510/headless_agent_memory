@@ -109,7 +109,7 @@ The run does **not** establish that agentic memory improves final-answer correct
 
 1. Re-run extraction with a conservative `--rpm` value and checkpoint directory; preserve the per-ticket result JSONL, API event log, outcome taxonomy, claim-level scores, and `scope_decisions`. Keep secrets out of the artifacts.
 2. Re-run the complete matched three-arm experiment with the same model, task order, gateway, and provider budget for every arm. Do not score API-unavailable runs as agent failures; resume them when quota resets.
-3. Add an explicit regression assertion for `t28`: both `billing_v2` and `2026-12-01` must be represented as separate grounded claims, and the tool gate must only allow the route change after the authoritative route claim is admitted.
+3. A targeted offline regression is now checked in at `tests/test_review_hardening.py`: the first pass extracts only the `2026-12-01` retirement date, the bounded follow-up must focus on `billing_v2`, and both claims must be independently grounded and admitted. This proves the deterministic coverage-gap path for the exact ticket shape; it does not prove Gemini will reliably return the route claim in a live run. Keep the live per-ticket result and action-gate check in the next matched experiment.
 4. Have an independent person label a fresh task set. The current held-out set has already influenced development and is no longer a pristine generalization test.
 5. Report admission precision/recall, false rejection, safe abstention, unsafe admission, claim-level recall, grounding, task success, unsafe action rate, API unavailability, tool/LLM calls, and p95 latency separately.
 
